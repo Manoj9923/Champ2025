@@ -21,6 +21,7 @@ jobs:
       - name: Transfer file
         uses: appleboy/scp-action@v1
         with:
+          "$(pwd)"
           host: ${{ github.event.inputs.server }}
           username: ${{ github.event.inputs.user }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
