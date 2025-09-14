@@ -18,18 +18,11 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
-
-      - name: Debug - List files
-        run: |
-          echo "Current working directory: $(pwd)"
-          echo "Listing files recursively:"
-          ls -R
-
       - name: Transfer file
         uses: appleboy/scp-action@v1
         with:
           host: ${{ github.event.inputs.server }}
           username: ${{ github.event.inputs.user }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "git.docx"   # adjust path after checking Debug output
+          source: "pic.jpg"   
           target: ${{ github.event.inputs.target_path }}
