@@ -20,8 +20,8 @@ jobs:
         uses: actions/checkout@v3
       - name: Transfer file
         uses: appleboy/scp-action@v1
+        echo "Current working directory: $(pwd)"
         with:
-          echo "Current working directory: $(pwd)"
           host: ${{ github.event.inputs.server }}
           username: ${{ github.event.inputs.user }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
