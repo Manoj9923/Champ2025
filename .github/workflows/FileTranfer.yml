@@ -1,4 +1,4 @@
- name: Transfer File to the server
+name: Transfer File to the server
 on:
   workflow_dispatch:
     inputs:
