@@ -22,11 +22,11 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
            echo "Installing Apache "
-           sudo yum update -y
-           sudo yum install httpd -y
-           sudo systemctl status httpd
-           sudo systemctl start httpd
-           sudo systemctl enable httpd
+           echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S yum update -y
+           echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S yum install httpd -y
+           echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S systemctl status httpd
+           echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S systemctl start httpd
+           echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S systemctl enable httpd
            ps -ef|grep -i httpd
            echo "Apache Installed & Configured Successfully "
 
