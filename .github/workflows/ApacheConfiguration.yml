@@ -1,0 +1,40 @@
+name: Apache Configuration
+on:
+  workflow_dispatch:
+    inputs:
+      server:
+        description: "Where we need to install Apache that Hostname/IP:"
+        required: true
+      user:
+        description: "User Name" 
+        required: true
+jobs:
+  Apache_Installtion
+    runs-on: self-hosted
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v3
+      - name: Apache Installtion & Configuration
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ github.event.inputs.server }}
+          username: ${{ github.event.inputs.user }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+           echo "Installing Apache "
+           sudo yum update -y
+           sudo yum install httpd -y
+           sudo systemctl status httpd
+           sudo systemctl start httpd
+           sudo systemctl enable httpd
+           ps -ef|grep -i httpd
+
+
+
+           
+           
+           
+
+    
+    
+        
