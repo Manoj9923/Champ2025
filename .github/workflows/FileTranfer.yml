@@ -16,7 +16,7 @@ jobs:
   Transfer_File_Server:
     runs-on: self-hosted   
     steps:
-      - name: Checkout current repo
+      - name: Checkout repo
         uses: actions/checkout@v3
       - name: Transfer file
         uses: appleboy/scp-action@v1
