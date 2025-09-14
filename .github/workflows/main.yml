@@ -11,18 +11,25 @@ on:
       target_path:
         required: true
         default: /tmp/Manoj
+
 jobs:
   Transfer_File_Server:
-    runs-on: self-hosted   
+    runs-on: self-hosted
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
+
+      - name: Debug - List files
+        run: |
+          echo "Current working directory: $(pwd)"
+          echo "Listing files recursively:"
+          ls -R
+
       - name: Transfer file
         uses: appleboy/scp-action@v1
-       # echo "Current working directory: $(pwd)"
         with:
           host: ${{ github.event.inputs.server }}
           username: ${{ github.event.inputs.user }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "git.docx"
-          target: ${{ github.event.inputs.target_path }}  
+          source: "git.docx"   # adjust path after checking Debug output
+          target: ${{ github.event.inputs.target_path }}
