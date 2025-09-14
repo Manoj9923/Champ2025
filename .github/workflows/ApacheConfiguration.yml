@@ -9,7 +9,7 @@ on:
         description: "User Name" 
         required: true
 jobs:
-  Apache_Installtion
+  Apache_Installtion:
     runs-on: self-hosted
     steps:
       - name: checkout repo
