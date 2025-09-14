@@ -22,7 +22,6 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
            echo "Installing Apache "
-           # echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S yum update -y
            echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S yum install httpd -y
            echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S systemctl status httpd
            echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S systemctl start httpd
