@@ -27,6 +27,11 @@ jobs:
             # Install Node.js LTS
             echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S curl -fsSL https://rpm.nodesource.com/setup_20.x | sudo -E bash -
             echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S yum install -y nodejs git
+
+            # Remove any partially cloned folder to avoid missing package.json
+            if [ -d "$HOME/uptime-kuma" ]; then
+              rm -rf $HOME/uptime-kuma
+            fi
             
             # Clone Uptime Kuma if not already
             if [ ! -d "$HOME/uptime-kuma" ]; then
