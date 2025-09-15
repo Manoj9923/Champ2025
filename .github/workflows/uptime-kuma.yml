@@ -25,14 +25,19 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             # Install Node.js LTS
+            echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S curl -fsSL https://rpm.nodesource.com/setup_20.x | sudo -E bash -
             echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S yum install -y nodejs git
+            npm run build
 
             # Clone Uptime Kuma if not already
+            mkdir $HOME/uptime-kuma
             if [ ! -d "$HOME/uptime-kuma" ]; then
               git clone https://github.com/louislam/uptime-kuma.git $HOME/uptime-kuma
             fi
             cd $HOME/uptime-kuma
-            npm install --production
+            npm install --include=dev
+            npm run build
+            npm start
 
             # Setup systemd service
             SERVICE_FILE=/etc/systemd/system/uptime-kuma.service
