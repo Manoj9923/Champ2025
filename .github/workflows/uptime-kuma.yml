@@ -27,16 +27,20 @@ jobs:
             # Install Node.js LTS
             echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S curl -fsSL https://rpm.nodesource.com/setup_20.x | sudo -E bash -
             echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S yum install -y nodejs git
-            npm run build
-
+            
             # Clone Uptime Kuma if not already
-            mkdir $HOME/uptime-kuma
             if [ ! -d "$HOME/uptime-kuma" ]; then
               git clone https://github.com/louislam/uptime-kuma.git $HOME/uptime-kuma
             fi
             cd $HOME/uptime-kuma
+            
+            # Install dev dependencies (required for build)
             npm install --include=dev
+            
+            # Build frontend
             npm run build
+
+            # Start server manually (for testing)
             npm start
 
             # Setup systemd service
@@ -57,7 +61,8 @@ jobs:
             [Install]
             WantedBy=multi-user.target
             SERVICE
-
+            
+            # Enable & start service
             echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S systemctl daemon-reload
             echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S systemctl enable --now uptime-kuma
 
