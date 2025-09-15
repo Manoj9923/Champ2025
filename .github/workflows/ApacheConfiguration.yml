@@ -1,4 +1,4 @@
-name: Apache Configuration
+name: Apache install &  Configuration
 on:
   workflow_dispatch:
     inputs:
